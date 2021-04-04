@@ -1,8 +1,8 @@
 export class User {
   uid: string;
-  email: string;
-  password: string;
-  displayName: string;
-  photoURL: string;
+  email: string | null;
+  //password: string;
+  displayName: string | null;
+  photoURL: string | null;
   //emailVerified: boolean;
 }
