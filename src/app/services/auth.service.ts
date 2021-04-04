@@ -14,8 +14,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  //userData: any;
-  userData: User;
+  userData: User | null;
 
   constructor(
     public afs: AngularFirestore, // Inject Firestore service
@@ -31,7 +30,7 @@ export class AuthService {
         localStorage.setItem('user', JSON.stringify(this.userData));
         // JSON.parse(localStorage.getItem('user') || '{}');
       } else {
-        // this.userData = null;
+        this.userData = null;
         localStorage.setItem('user', '{}');
         // JSON.parse(localStorage.getItem('user') || '{}');
       }
@@ -45,7 +44,7 @@ export class AuthService {
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['home']);
         });
         this.SetUserData(result.user);
       })
@@ -95,8 +94,8 @@ export class AuthService {
   // TODO: revisar async ??
   async SignOut() {
     return this.afAuth.signOut().then(() => {
-      localStorage.removeItem('user');
-      this.router.navigate(['sign-in']);
+      localStorage.setItem('user', '{}');
+      this.router.navigate(['home']);
     });
   }
 }
