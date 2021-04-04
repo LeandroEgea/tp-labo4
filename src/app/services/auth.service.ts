@@ -92,7 +92,8 @@ export class AuthService {
   }
 
   // Sign out
-  SignOut() {
+  // TODO: revisar async ??
+  async SignOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
       this.router.navigate(['sign-in']);
