@@ -26,13 +26,16 @@ export class AuthService {
     logged in and setting up null when logged out */
     this.afAuth.authState.subscribe((user) => {
       if (user) {
-        this.userData = user;
+        this.userData = User.Create(
+          user.uid,
+          user.email,
+          user.displayName,
+          user.photoURL
+        );
         localStorage.setItem('user', JSON.stringify(this.userData));
-        // JSON.parse(localStorage.getItem('user') || '{}');
       } else {
         this.userData = null;
         localStorage.setItem('user', '{}');
-        // JSON.parse(localStorage.getItem('user') || '{}');
       }
     });
   }
@@ -83,7 +86,6 @@ export class AuthService {
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL,
-      // emailVerified: user.emailVerified,
     };
     return userRef.set(userData, {
       merge: true,
