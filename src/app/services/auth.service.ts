@@ -65,6 +65,9 @@ export class AuthService {
         /* Call the SendVerificaitonMail() function when new user sign 
         up and returns promise */
         // this.SendVerificationMail();
+        this.ngZone.run(() => {
+          this.router.navigate(['home']);
+        });
         this.SetUserData(result.user);
       })
       .catch((error) => {
